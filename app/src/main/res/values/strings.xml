@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">LoginApp</string>
+    <string name="enter_username">Enter your username</string>
+    <string name="enter_btn">Enter</string>
+</resources>
