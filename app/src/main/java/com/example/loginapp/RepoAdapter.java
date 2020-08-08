@@ -13,52 +13,49 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserItemViewHolder> {
-    private List<User> users;
+public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoItemViewHolder> {
+    private List<Repo> repos;
     private Context context;
 
-    public UserAdapter (List<User> users, Context c) {
-        this.users = users;
+    public RepoAdapter(List<Repo> repos, Context c) {
+        this.repos = repos;
         this.context = c;
     }
     //ds repos
     @Override
     public int getItemCount() {
-        return users.size();
+        return repos.size();
     }
 
     //tạo ra view để hiển thị lên
     @Override
-    public UserItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RepoItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.user_layout, parent, false);
+                .inflate(R.layout.repo_layout, parent, false);
 
-        return new UserItemViewHolder(itemView);
+        return new RepoItemViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UserItemViewHolder holder, int position) {
-        User user = users.get(position);
+    public void onBindViewHolder(@NonNull RepoItemViewHolder holder, int position) {
+        Repo repo = repos.get(position);
 
-        holder.tvFullName.setText(user.full_name);
-        holder.tvUrl.setText(user.html_url);
-        holder.tvDes.setText(user.description);
-        holder.tvId.setText(String.valueOf(user.id));
-        holder.tvLogin.setText(user.login);
+        holder.tvFullName.setText(repo.full_name);
+        holder.tvUrl.setText(repo.html_url);
+        holder.tvDes.setText(repo.description);
+        holder.tvId.setText(String.valueOf(repo.id));
     }
 
     //lưu lại view để dùng lại
-    public static class UserItemViewHolder extends RecyclerView.ViewHolder {
+    public static class RepoItemViewHolder extends RecyclerView.ViewHolder {
         public TextView tvFullName;
         public TextView tvId;
         public TextView tvUrl;
         public TextView tvDes;
-        public  TextView tvLogin;
 
 
-        public UserItemViewHolder(View itemView) {
+        public RepoItemViewHolder(View itemView) {
             super(itemView);
-            tvLogin = (TextView) itemView.findViewById(R.id.tv_Login);
             tvFullName = (TextView) itemView.findViewById(R.id.tv_full_name);
             tvId = (TextView) itemView.findViewById(R.id.tv_idrepo);
             tvUrl = (TextView) itemView.findViewById(R.id.tv_url);
