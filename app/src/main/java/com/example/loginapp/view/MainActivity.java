@@ -1,14 +1,19 @@
-package com.example.loginapp;
+package com.example.loginapp.view;
 
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.loginapp.R;
+import com.example.loginapp.model.Data;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
@@ -26,13 +31,23 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
+    String url, user;
+    TextView username;
+    ImageView avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        username = findViewById(R.id.user_name);
+        avatar = findViewById(R.id.user_avatar);
         Intent intent = getIntent();
         String userName = intent.getStringExtra("user");
+        username.setText(intent.getExtras().getString("name"));
+        Glide.with(this)
+                .load(intent.getExtras().getString("avatar"))
+                .into(avatar);
 
         //Khởi tạo RecyclerView
 
@@ -45,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         //Khởi tạo Moshi adapter để biến đổi json sang model
         Moshi moshi = new Moshi.Builder().build();
 
-        Type reposType = Types.newParameterizedType(List.class, Repo.class);
-        final JsonAdapter<List<Repo>> jsonAdapter = moshi.adapter(reposType);
+        Type reposType = Types.newParameterizedType(List.class, Data.class);
+        final JsonAdapter<List<Data>> jsonAdapter = moshi.adapter(reposType);
 
         //Tạo request lên server
         final Request request = new Request.Builder()
@@ -64,13 +79,13 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 //Lấy thông tin JSON trả về
                 String json = response.body().string();
-                final List<Repo> repos = jsonAdapter.fromJson(json);
+                final List<Data> data = jsonAdapter.fromJson(json);
 
                 //Cho hiển thị lên RecyclerView
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        rvRepos.setAdapter(new RepoAdapter(repos, MainActivity.this));
+                        rvRepos.setAdapter(new DataAdapter(data, MainActivity.this));
                     }
                 });
             }

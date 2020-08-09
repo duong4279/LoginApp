@@ -1,4 +1,4 @@
-package com.example.loginapp;
+package com.example.loginapp.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.loginapp.R;
+import com.example.loginapp.model.Data;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.JsonReader;
 import com.squareup.moshi.Moshi;
@@ -21,9 +23,9 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 
 public class LoginActivity extends AppCompatActivity {
+    private static String userName;
     Button btnLogin;
     public EditText edtUserName;
-    public String userName;
     private JsonReader reader;
     String login;
 
@@ -34,6 +36,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         edtUserName = (EditText) findViewById(R.id.edt_username);
         btnLogin= (Button) findViewById(R.id.btn_enter);
+
+
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -47,13 +51,14 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
     public void login() {
         // Khởi tạo OkHttpClient để lấy dữ liệu.
         OkHttpClient client = new OkHttpClient();
 
         // Khởi tạo Moshi adapter để biến đổi json sang model java
         Moshi moshi = new Moshi.Builder().build();
-        final JsonAdapter<Repo> jsonAdapter = moshi.adapter(Repo.class);
+        final JsonAdapter<Data> jsonAdapter = moshi.adapter(Data.class);
 
         // Tạo request lên server.
         final okhttp3.Request request = new okhttp3.Request.Builder()
@@ -74,14 +79,15 @@ public class LoginActivity extends AppCompatActivity {
                 String json = response.body().string();
                 System.out.println(json);
 
-//                reader = JsonReader.of((BufferedSource) users);
+//                reader = JsonReader.of((BufferedSource) data);
 //                reader.beginObject();
 //                while (reader.hasNext()) {
 //                    String name = reader.nextName();
-//                    if (name.equals("login")) {
+//                    if (name.equals("avatar_url")) {
 //                        login = reader.nextString();
 //                    }
 //                }
+//                System.out.println(login);
 
 
                 if(json.contains("message")){
@@ -90,13 +96,15 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Wrong UserName", Toast.LENGTH_SHORT).show();
                         }
                     });
-//                    User user = jsonAdapter.fromJson(json);
+
 
                 } else {
+                    Data data =  jsonAdapter.fromJson(json);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("url", "https://api.github.com/users/" + edtUserName.getText());
-//                    intent.putExtra("name", user.getName());
+//                    intent.putExtra("url", "https://api.github.com/users/" + userName + "/repos");
                     intent.putExtra("user", userName);
+                    intent.putExtra("name", data.getName());
+                    intent.putExtra("avatar", data.getAvatar_url());
                     startActivity(intent);
 
 

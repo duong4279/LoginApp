@@ -1,60 +1,65 @@
-package com.example.loginapp;
-
+package com.example.loginapp.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.loginapp.R;
+import com.example.loginapp.model.Data;
+
 import java.util.List;
 
-public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoItemViewHolder> {
-    private List<Repo> repos;
+public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder> {
+    private List<Data> data;
     private Context context;
 
-    public RepoAdapter(List<Repo> repos, Context c) {
-        this.repos = repos;
+    public DataAdapter(List<Data> data, Context c) {
+        this.data = data;
         this.context = c;
     }
     //ds repos
     @Override
     public int getItemCount() {
-        return repos.size();
+        return data.size();
     }
 
     //tạo ra view để hiển thị lên
     @Override
-    public RepoItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.repo_layout, parent, false);
 
-        return new RepoItemViewHolder(itemView);
+        return new DataViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RepoItemViewHolder holder, int position) {
-        Repo repo = repos.get(position);
+    public void onBindViewHolder(@NonNull DataViewHolder holder, int position) {
+        Data d = data.get(position);
+//        Picasso.with(context)
+//                .load(d.avatar_url)
+//                .into(holder.ivAvatar);
+        holder.tvFullName.setText(d.full_name);
+        holder.tvUrl.setText(d.html_url);
+        holder.tvDes.setText(d.description);
+        holder.tvId.setText(String.valueOf(d.id));
 
-        holder.tvFullName.setText(repo.full_name);
-        holder.tvUrl.setText(repo.html_url);
-        holder.tvDes.setText(repo.description);
-        holder.tvId.setText(String.valueOf(repo.id));
+
     }
 
     //lưu lại view để dùng lại
-    public static class RepoItemViewHolder extends RecyclerView.ViewHolder {
+    public static class DataViewHolder extends RecyclerView.ViewHolder {
         public TextView tvFullName;
         public TextView tvId;
         public TextView tvUrl;
         public TextView tvDes;
 
 
-        public RepoItemViewHolder(View itemView) {
+        public DataViewHolder(View itemView) {
             super(itemView);
             tvFullName = (TextView) itemView.findViewById(R.id.tv_full_name);
             tvId = (TextView) itemView.findViewById(R.id.tv_idrepo);
