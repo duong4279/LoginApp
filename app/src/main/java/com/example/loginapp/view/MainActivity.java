@@ -11,12 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.loginapp.R;
 import com.example.loginapp.model.Data;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String userName = intent.getStringExtra("user");
         username.setText(intent.getExtras().getString("name"));
-        Glide.with(this)
+        Picasso.with(this)
                 .load(intent.getExtras().getString("avatar"))
                 .into(avatar);
 

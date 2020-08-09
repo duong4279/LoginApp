@@ -13,17 +13,27 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:contentDescription="@string/avatar_description" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/user"
+        android:text="Username: "
+        android:layout_toRightOf="@id/user_avatar"
+        android:layout_marginLeft="18dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="user name"
-        android:layout_toRightOf="@id/user_avatar"
-        android:layout_marginLeft="18dp"
-        android:textColor="@color/colorPrimary"
+        android:layout_toRightOf="@id/user"
+        android:layout_marginLeft="0dp"
+        android:textColor="@color/black"
         android:layout_marginTop="20dp"
-        android:textSize="24sp"/>
+        android:textSize="20sp"/>
 
 <!--    <Space-->
 <!--        android:id="@+id/space"-->
@@ -32,17 +42,17 @@
 <!--        android:layout_height="8dp"/>-->
 
     <View
-        android:id="@+id/space"
+        android:id="@+id/line"
         android:layout_below="@id/user_avatar"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryDark"
         android:orientation="horizontal" />
 
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/space"
+        android:layout_below="@id/line"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rv_repos" />

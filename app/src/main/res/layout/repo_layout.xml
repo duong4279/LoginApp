@@ -11,15 +11,15 @@
         android:id="@+id/tv_full_name"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:textSize="24sp"
-        android:textColor="@color/colorPrimary"/>
+        android:textSize="20sp"
+        android:textColor="@color/black"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_url"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/color_link"
         android:textSize="14sp"/>
 
     <TextView
@@ -28,7 +28,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:id="@+id/tv_idrepo"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/black"
         android:textSize="14sp"/>
     <TextView
         android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
         android:id="@+id/tv_des"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/black"
         android:textSize="14sp"/>
 
 
